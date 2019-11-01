@@ -4,7 +4,7 @@
  * @Version: 1.0.0
  * @Date: 2019-11-01 14:26
  */
-package rr
+package rlog
 
 import (
 	"bytes"
@@ -100,10 +100,7 @@ func (r *RLog) formatHeader(buf *bytes.Buffer, t time.Time, file string, line in
 		buf.WriteString(r.prefix)
 		buf.WriteByte('>')
 	}
-	// 日志级别位被标记
-	if r.flag&BitLevel != 0 {
-		buf.WriteString(levels[level])
-	}
+
 	//已经设置了时间相关的标识位,那么需要加时间信息在日志头部
 	if r.flag&(BitDate|BitTime|BitMicroSeconds) != 0 {
 		if r.flag&BitDate != 0 {
@@ -130,6 +127,10 @@ func (r *RLog) formatHeader(buf *bytes.Buffer, t time.Time, file string, line in
 			itoa(buf, t.Nanosecond()/1e3, 6) // "11:15:33.123123
 		}
 		buf.WriteByte(' ')
+	}
+	// 日志级别位被标记
+	if r.flag&BitLevel != 0 {
+		buf.WriteString(levels[level])
 	}
 	//日志当前代码调用文件名名称位被标记
 	if r.flag&(BitShortFile|BitLongFile) != 0 {
@@ -343,7 +344,7 @@ func itoa(buf *bytes.Buffer, i int, wid int) {
 	}
 
 	// Assemble decimal in reverse order.
-	var b [64]byte
+	var b [32]byte
 	bp := len(b)
 	for ; u > 0 || wid > 0; u /= 10 {
 		bp--
