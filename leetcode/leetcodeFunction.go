@@ -14,6 +14,7 @@ leetCode 解题 找出没有重复字符的最长子串
 func LengthOfString(s string) int {
 	var length, j, i, t = 0, 0, 0, 0
 	for ; i < len(s); i++ {
+		//返回字符 在字符串中的位置
 		if t = strings.Index(s[j:i], string(s[i])); t == -1 {
 			if length < i-j {
 				length = i - j + 1
