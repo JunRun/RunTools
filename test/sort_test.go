@@ -9,11 +9,36 @@ package test
 import (
 	"fmt"
 	"github.com/JunRun/RunTools/rdata"
+	"github.com/emacsist/go-common/helper/number"
 	"testing"
 )
 
 func TestMergeSort(t *testing.T) {
-	s := []int{14, 5, 3, 23, 6, 8, 4, 8}
-	l := rdata.MergeSort(s)
+	data := number.GenerateInt(100000, 100000)
+	l := rdata.MergeSort(data)
 	fmt.Println(l)
+}
+
+//func BenchmarkMergeSort(b *testing.B){
+//	data := number.GenerateInt(100000, 100000)
+//	l := rdata.MergeSort(data)
+//	fmt.Println(l)
+//}
+
+//func BenchmarkTes(b *testing.B){
+//	fmt.Println("sdsdsdsd")
+//}
+
+func TestQuickSort(t *testing.T) {
+	data := number.GenerateInt(100000, 100000)
+	//data:=[]int{2,8,4,7,12,34,2,45,12,5,67,34}
+	rdata.QuickSort(data)
+	fmt.Println(data)
+}
+
+func BenchmarkTestQuickSort(b *testing.B) {
+	data := number.GenerateInt(100000, 100000)
+	//data:=[]int{2,8,4,7,12,34,2,45,12,5,67,34}
+	rdata.QuickSort(data)
+	fmt.Println(data)
 }
