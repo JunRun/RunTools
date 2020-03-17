@@ -60,3 +60,22 @@ func (p *Pool) Close() {
 		r.Close()
 	}
 }
+
+//释放资源
+func (p *Pool) Release(r io.Closer) {
+	p.Lock.Lock()
+	defer p.Lock.Unlock()
+
+	if p.Closed {
+		r.Close()
+		return
+	}
+
+	select {
+	case p.Res <- r:
+		fmt.Println("释放资源，放入连接池")
+	default:
+		r.Close()
+		fmt.Println("连接池已满，关闭资源")
+	}
+}
