@@ -11,8 +11,10 @@ require (
 	github.com/coreos/etcd v3.3.18+incompatible // indirect
 	github.com/coreos/go-systemd v0.0.0-20191104093116-d3cd4ed1dbcf // indirect
 	github.com/emacsist/go-common v0.0.0-20161123135342-0232fc65c69e
+	github.com/facebookincubator/ent v0.1.3
 	github.com/go-acme/lego/v3 v3.4.0 // indirect
 	github.com/go-log/log v0.2.0 // indirect
+	github.com/go-sql-driver/mysql v1.4.1-0.20190510102335-877a9775f068
 	github.com/gogo/protobuf v1.3.1 // indirect
 	github.com/golang/protobuf v1.3.4 // indirect
 	github.com/gorilla/mux v1.7.4 // indirect
@@ -35,6 +37,7 @@ require (
 	golang.org/x/lint v0.0.0-20200302205851-738671d3881b // indirect
 	golang.org/x/sys v0.0.0-20200302150141-5c8b2ff67527 // indirect
 	golang.org/x/tools v0.0.0-20200309202150-20ab64c0d93f // indirect
+	golang.org/x/xerrors v0.0.0-20191204190536-9bdfabe68543
 	google.golang.org/grpc v1.26.0 // indirect
 	gopkg.in/square/go-jose.v2 v2.4.1 // indirect
 	honnef.co/go/tools v0.0.1-2020.1.3 // indirect
