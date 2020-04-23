@@ -2,13 +2,14 @@ package spider
 
 import (
 	"fmt"
-	"github.com/antchfx/htmlquery"
-	"golang.org/x/net/html"
 	"log"
 	"math/rand"
 	"net/http"
 	"net/url"
 	"time"
+
+	"github.com/antchfx/htmlquery"
+	"golang.org/x/net/html"
 )
 
 func HttpFetchDoc(webUrl string, method string) *html.Node {
