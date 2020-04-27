@@ -38,7 +38,7 @@ func TestPoo(t *testing.T) {
 	p.Name = "first"
 
 	fmt.Println("设置 p.Name = ", p.Name)
-
+	p = nil
 	pool.Put(p)
 	fmt.Println("Pool 里已有一个对象：&{first}，调用 Get: ", pool.Get().(*Person))
 	fmt.Println("Pool 没有对象了，调用 Get: ", pool.Get().(*Person))

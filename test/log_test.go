@@ -45,3 +45,12 @@ func TestO(t *testing.T) {
 	out <- 2
 	go f1(out)
 }
+
+func TestTime(t *testing.T) {
+	location, _ := time.LoadLocation("Asia/Dubai")
+	tm := time.Now().In(location)
+
+	startTime := tm.Format("2006-01-02 15:04:05")
+
+	fmt.Println(startTime)
+}
