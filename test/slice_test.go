@@ -43,3 +43,11 @@ func TestA(t *testing.T) {
 	fmt.Println(s2)
 
 }
+
+func TestRange(t *testing.T) {
+	v := []int{1, 2, 3}
+	for i := range v {
+		v = append(v, v[i])
+		fmt.Println(v[i])
+	}
+}

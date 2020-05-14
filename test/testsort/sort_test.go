@@ -56,3 +56,25 @@ func Hello() {
 	time.Sleep(time.Second)
 	fmt.Println("hello")
 }
+
+func TestABF(t *testing.T) {
+	fmt.Println(foo(), bar())
+	fmt.Println(foo(), bar())
+}
+
+func fo(p *int) int {
+	*p = 123
+	return *p
+}
+
+func foo() int {
+	var x int
+	y, _ := x, fo(&x)
+	return y
+}
+
+func bar() int {
+	var x int
+	var y, _ = x, fo(&x)
+	return y
+}

@@ -16,6 +16,7 @@ import (
 func TestGc(t *testing.T) {
 	go func() {
 		for {
+
 		}
 	}()
 
