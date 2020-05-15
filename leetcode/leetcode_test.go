@@ -35,3 +35,12 @@ func TestP(t *testing.T) {
 func TestA(t *testing.T) {
 	fmt.Println(3 / 2)
 }
+
+func TestSubarraySum(t *testing.T) {
+	//i:=[]int{-1,-1,1}
+	//k:=0
+
+	i := []int{1, 1, 4, 1, 1, 4}
+	k := 2
+	fmt.Println(SubarraySum2(i, k))
+}
