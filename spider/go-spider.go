@@ -5,7 +5,6 @@ import (
 	"log"
 	"math/rand"
 	"net/http"
-	"net/url"
 	"time"
 
 	"github.com/antchfx/htmlquery"
@@ -13,10 +12,8 @@ import (
 )
 
 func HttpFetchDoc(webUrl string, method string) *html.Node {
-	proxy := func(_ *http.Request) (*url.URL, error) {
-		return url.Parse("http://127.0.0.1:8001")
-	}
-	client := &http.Client{Transport: &http.Transport{Proxy: proxy}}
+
+	client := &http.Client{Transport: &http.Transport{}}
 	req, _ := http.NewRequest(method, webUrl, nil)
 	req.Header.Set("User-Agent", RandomAgent())
 	count := 0
