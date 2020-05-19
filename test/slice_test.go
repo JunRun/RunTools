@@ -51,3 +51,13 @@ func TestRange(t *testing.T) {
 		fmt.Println(v[i])
 	}
 }
+
+func TestAC(t *testing.T) {
+	a := [2]int{0, 0}
+	ad(a)
+	fmt.Println(a)
+}
+
+func ad(a [2]int) {
+	a[0] = 1
+}
