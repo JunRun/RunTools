@@ -54,7 +54,7 @@ func heapify(a []int, n, i int) {
 		if a[i] < a[i*2] && i*2 <= n {
 			maxPoi = i * 2
 		}
-		if a[maxPoi] < a[i*2+1] && i*2+1 <= n {
+		if i*2+1 <= n && a[maxPoi] < a[i*2+1] {
 			maxPoi = i*2 + 1
 		}
 		if maxPoi == i {

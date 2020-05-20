@@ -44,3 +44,15 @@ func TestSubarraySum(t *testing.T) {
 	k := 2
 	fmt.Println(SubarraySum2(i, k))
 }
+
+func TestConstructor(t *testing.T) {
+	//a :=[]int{2,0,-1,1,-2,-4,3}
+	s := []int{4, 5, 8, 2}
+	larg := Constructor(3, s)
+	fmt.Println(larg.Add(3))
+	fmt.Println(larg.Add(1))
+	fmt.Println(larg.Add(-2))
+	fmt.Println(larg.Add(-4))
+	fmt.Println(larg.Add(3))
+
+}
