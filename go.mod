@@ -3,6 +3,7 @@ module github.com/JunRun/RunTools
 go 1.12
 
 require (
+	github.com/GeertJohan/go.rice v1.0.0 // indirect
 	github.com/antchfx/htmlquery v1.0.0
 	github.com/antchfx/xpath v1.0.0 // indirect
 	github.com/emacsist/go-common v0.0.0-20161123135342-0232fc65c69e
