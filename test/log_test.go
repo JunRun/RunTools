@@ -49,8 +49,36 @@ func TestO(t *testing.T) {
 func TestTime(t *testing.T) {
 	location, _ := time.LoadLocation("Asia/Dubai")
 	tm := time.Now().In(location)
-
-	startTime := tm.Format("2006-01-02 15:04:05")
+	startTime := tm.Format("2006-01-02T15:04")
+	tm = tm.Add(1)
+	s := tm.Format("2006-01-02T15:04")
 
 	fmt.Println(startTime)
+	fmt.Printf(s)
+}
+func AB() {
+	fmt.Println("ad" + time.Now().String())
+}
+func TestAS(t *testing.T) {
+
+	go func() {
+		t := time.NewTicker(2 * time.Second)
+		for {
+			select {
+			case <-t.C:
+				AB()
+			}
+		}
+	}()
+	time.Sleep(20 * time.Second)
+}
+
+//func TestListenWorker(t *testing.T){
+//	worksList:=make(map[string]Works)
+//	worksList["1"] =
+//}
+type Works struct {
+	InfoList map[string]Info
+}
+type Info struct {
 }

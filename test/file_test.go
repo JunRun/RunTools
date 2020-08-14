@@ -47,3 +47,8 @@ func TestCha(t *testing.T) {
 	close(ch)
 
 }
+func TestSubFileName(t *testing.T) {
+	name := "worker-gl-sg1-172-16-13-115-P1-03.log"
+	term := name[len(name)-9 : len(name)-7]
+	fmt.Println(term)
+}
