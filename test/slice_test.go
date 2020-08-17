@@ -8,6 +8,7 @@ package test
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 )
 
@@ -60,4 +61,11 @@ func TestAC(t *testing.T) {
 
 func ad(a [2]int) {
 	a[0] = 1
+}
+
+func TestBuilder(t *testing.T) {
+	var list strings.Builder
+	list.WriteString("11111\n")
+	list.WriteString("22222\n")
+	fmt.Println(list.String())
 }
