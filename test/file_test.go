@@ -7,9 +7,11 @@
 package test
 
 import (
+	"bufio"
 	"context"
 	"fmt"
 	"github.com/JunRun/RunTools/rfile"
+	"os"
 	"testing"
 	"time"
 )
@@ -45,5 +47,27 @@ func TestCha(t *testing.T) {
 	}()
 	fmt.Println("接收值", <-ch)
 	close(ch)
+
+}
+
+//测试文件游标
+func TestFileSeek(t *testing.T) {
+	f, err := os.Open("C:\\Users\\Admin\\Desktop\\sectors(2).log")
+	fi, err := os.Stat("C:\\Users\\Admin\\Desktop\\sectors(2).log")
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer f.Close()
+	f.Seek(fi.Size()-320, 1)
+	s := bufio.NewReader(f)
+	by, err := s.ReadString('\n')
+	if err != nil {
+
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(by)
 
 }
