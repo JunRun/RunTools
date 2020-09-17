@@ -69,3 +69,13 @@ func TestBuilder(t *testing.T) {
 	list.WriteString("22222\n")
 	fmt.Println(list.String())
 }
+func TestTrunCate(t *testing.T) {
+	var s []string
+	s = append(s, "112")
+	s = append(s, "2133")
+	s = append(s, "3131")
+	fmt.Println(cap(s), len(s), s)
+
+	s = s[0:0]
+	fmt.Println(cap(s), len(s), s)
+}
