@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"strings"
 	"testing"
+	"time"
 )
 
 //探究 go 1.4 slice 切片扩容策略
@@ -69,13 +70,32 @@ func TestBuilder(t *testing.T) {
 	list.WriteString("22222\n")
 	fmt.Println(list.String())
 }
+
+type info struct {
+	S    string
+	Name string
+	P    string
+	Q    string
+	T    string
+	LL   time.Time
+}
+
 func TestTrunCate(t *testing.T) {
-	var s []string
-	s = append(s, "112")
-	s = append(s, "2133")
-	s = append(s, "3131")
-	fmt.Println(cap(s), len(s), s)
+	var s []info
+	for i := 1; i < 6000000; i++ {
+		s = append(s, info{
+			S:    "123",
+			Name: "231",
+			P:    "3213",
+			Q:    "3213",
+			T:    "31123",
+			LL:   time.Now(),
+		})
+	}
+
+	fmt.Println(cap(s), len(s))
 
 	s = s[0:0]
-	fmt.Println(cap(s), len(s), s)
+	s = nil
+	fmt.Println(cap(s), len(s))
 }

@@ -11,6 +11,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/JunRun/RunTools/rfile"
+	"io"
+	"log"
 	"os"
 	"testing"
 	"time"
@@ -53,14 +55,13 @@ func TestCha(t *testing.T) {
 //测试文件游标
 func TestFileSeek(t *testing.T) {
 	f, err := os.Open("C:\\Users\\Admin\\Desktop\\sectors(2).log")
-	fi, err := os.Stat("C:\\Users\\Admin\\Desktop\\sectors(2).log")
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	defer f.Close()
-	f.Seek(fi.Size()-320, 1)
+	f.Seek(0, 2)
 	s := bufio.NewReader(f)
 	by, err := s.ReadString('\n')
 	if err != nil {
@@ -69,5 +70,52 @@ func TestFileSeek(t *testing.T) {
 		return
 	}
 	fmt.Println(by)
+}
+
+func TestLogFile(t *testing.T) {
+
+	logFile, err := os.OpenFile("log.txt", os.O_CREATE|os.O_APPEND|os.O_RDWR, 0666)
+	if err != nil {
+		panic(err)
+	}
+	defer logFile.Close()
+	mw := io.MultiWriter(os.Stdout, logFile)
+	log.SetOutput(mw)
+	i := 0
+	go func() {
+		for {
+			time.Sleep(time.Second * 1)
+			log.Println("tsd", i)
+			i++
+		}
+	}()
+
+	go listenFile("D:\\Users\\Admin\\go\\RunTools\\test\\log.txt")
+	select {}
+}
+
+func listenFile(path string) {
+
+	f, err := os.Open(path)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	defer f.Close()
+	f.Seek(0, 2)
+
+	for {
+		s := bufio.NewReader(f)
+
+		by, err := s.ReadBytes('\n')
+		if err == io.EOF {
+			time.Sleep(time.Second * 1)
+			continue
+		} else if err != nil {
+			fmt.Println("lo", err)
+		}
+		fmt.Println("监听日志记录", string(by))
+	}
 
 }
