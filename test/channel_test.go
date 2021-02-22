@@ -92,3 +92,48 @@ func TestCHM(t *testing.T) {
 	<-c
 	fmt.Println(len(s.Data))
 }
+func TestL(t *testing.T) {
+	sl := make(chan int, 20)
+	for i := 0; i < 40; i++ {
+		sl <- i
+		go func(i int) {
+			fmt.Println(len(sl))
+			fmt.Println(i)
+			<-sl
+		}(i)
+	}
+
+}
+
+//协程池测试
+
+type Task struct {
+	f func() error
+}
+
+func NewTask(f func() error) *Task {
+	return &Task{f: f}
+}
+func (t *Task) Execute() {
+	t.f()
+}
+
+type gPool struct {
+	WorkNum int
+	JobChan chan *Task //
+	Entry   chan *Task //接收任务入口
+}
+type worker interface {
+	work()
+}
+
+type person struct {
+	name string
+	worker
+}
+
+func TestWO(t *testing.T) {
+
+	var w worker = person{}
+	fmt.Println(w)
+}

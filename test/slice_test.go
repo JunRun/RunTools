@@ -99,3 +99,27 @@ func TestTrunCate(t *testing.T) {
 	s = nil
 	fmt.Println(cap(s), len(s))
 }
+
+const s = "Go101.org"
+
+var a byte = 1 << len(s) / 128
+var b byte = 1 << len(s[:]) / 128
+
+func TestAB(t *testing.T) {
+	fmt.Println(1<<len(s[:])/128, b)
+}
+
+func TestDataTrace(t *testing.T) {
+	var (
+		a int         = 0
+		b int64       = 0
+		c interface{} = int(0)
+		d interface{} = int64(0)
+	)
+
+	println(c == 0)
+	println(c == a)
+	println(c == b)
+	println(d == b)
+	println(d == 0)
+}

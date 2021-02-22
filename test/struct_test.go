@@ -9,6 +9,8 @@ package test
 import (
 	"encoding/json"
 	"fmt"
+	"sync"
+	"sync/atomic"
 	"testing"
 )
 
@@ -48,4 +50,20 @@ func TestJson(t *testing.T) {
 		fmt.Println(sp[1])
 	}
 
+}
+
+func TestData(t *testing.T) {
+	sum := 0
+	var total int64
+	var sy sync.WaitGroup
+	for i := 1; i <= 10; i++ {
+		sum += i
+		sy.Add(1)
+		go func(i int) {
+			atomic.AddInt64(&total, int64(i))
+			sy.Done()
+		}(i)
+	}
+	sy.Wait()
+	fmt.Printf("total:%d sum %d", total, sum)
 }

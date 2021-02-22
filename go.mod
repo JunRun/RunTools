@@ -1,6 +1,6 @@
 module github.com/JunRun/RunTools
 
-go 1.15
+go 1.16
 
 require (
 	github.com/antchfx/htmlquery v1.0.0

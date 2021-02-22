@@ -2,9 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"runtime"
-	"runtime/trace"
 	"sync"
 )
 
@@ -12,18 +9,19 @@ import (
 // go build -gcflags "-N -l" ./example.go
 // go tool trace -http="127.0.0.1:6060" ./trace.output
 func main() {
-	runtime.GOMAXPROCS(2)
-	create, _ := os.Create("trace.output")
-	defer create.Close()
-	_ = trace.Start(create)
-	defer trace.Stop()
-	var w sync.WaitGroup
-	for i := 0; i < 10; i++ {
-		w.Add(1)
-		go calcSum(&w, i)
-	}
-	w.Wait()
+	SmallAllocation()
 }
+
+//go:noinline
+func SmallAllocation() *smallStruct {
+	return &smallStruct{}
+}
+
+type smallStruct struct {
+	a, b int64
+	c, d float64
+}
+
 func calcSum(w *sync.WaitGroup, idx int) {
 	defer w.Done()
 	var sum, n int64
