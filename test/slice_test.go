@@ -13,7 +13,22 @@ import (
 	"time"
 )
 
-//探究 go 1.4 slice 切片扩容策略
+//探究 go 1.16 slice 切片扩容策略
+
+//[0 ->    0] cap = 0     |  after append 1     cap = 1
+//[0 ->    1] cap = 1     |  after append 2     cap = 2
+//[0 ->    2] cap = 2     |  after append 3     cap = 4
+//[0 ->    4] cap = 4     |  after append 5     cap = 8
+//[0 ->    8] cap = 8     |  after append 9     cap = 16
+//[0 ->   16] cap = 16    |  after append 17    cap = 32
+//[0 ->   32] cap = 32    |  after append 33    cap = 64
+//[0 ->   64] cap = 64    |  after append 65    cap = 128
+//[0 ->  128] cap = 128   |  after append 129   cap = 256
+//[0 ->  256] cap = 256   |  after append 257   cap = 512
+//[0 ->  512] cap = 512   |  after append 513   cap = 1024
+//[0 -> 1024] cap = 1024  |  after append 1025  cap = 1280
+//[0 -> 1280] cap = 1280  |  after append 1281  cap = 1696
+//[0 -> 1696] cap = 1696  |  after append 1697  cap = 2304
 func TestSlice(t *testing.T) {
 
 	s := make([]int, 0)
