@@ -1,10 +1,20 @@
 package main
 
-import (
-	"fmt"
-	"runtime"
-)
+//#include<stdio.h>
+/*
+static int div(int a,int b){
+	return a/b;
+}
+
+*/
+
+import "C"
+import "fmt"
 
 func main() {
-	fmt.Println(runtime.GOOS)
+	v := C.div(6, 3)
+
+	fmt.Println(v)
+	//fmt.Println(a.f)
+
 }

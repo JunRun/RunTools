@@ -8,7 +8,7 @@ import (
 // go trace 的使用 和go1.14 的异步抢占式调用
 // go build -gcflags "-N -l" ./example.go
 // go tool trace -http="127.0.0.1:6060" ./trace.output
-func main() {
+func Ex() {
 	SmallAllocation()
 }
 
