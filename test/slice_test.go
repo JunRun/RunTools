@@ -46,7 +46,10 @@ func TestSlice(t *testing.T) {
 
 //append 的扩容 当添加的是一个切片时
 func TestAppend(t *testing.T) {
+
+	te := make([]int, 0)
 	i := []int{1, 2}
+	fmt.Println(te)
 	i = append(i, 3, 4, 5)
 	fmt.Println(len(i), cap(i))
 

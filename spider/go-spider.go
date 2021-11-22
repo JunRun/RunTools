@@ -2,18 +2,75 @@ package spider
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"math/rand"
 	"net/http"
+	"strings"
 	"time"
 
 	"github.com/antchfx/htmlquery"
 	"golang.org/x/net/html"
 )
 
+func PostBody(url string, postBody string) (string, error) {
+	client := http.Client{
+		//超时时间为5s
+		Timeout: 9 * time.Second,
+	}
+	req, err := http.NewRequest("POST", url, strings.NewReader(postBody))
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	req.Header.Set("Content-Type", "application/json")
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	} else {
+		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return "", err
+		}
+		if string(body) == "" {
+			return resp.Status, nil
+		} else {
+			return string(body), nil
+		}
+	}
+}
+
+func GetBody(url string, auth string) (string, error) {
+	client := http.Client{
+		//超时时间为5s
+		Timeout: 9 * time.Second,
+	}
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("Authorization", auth)
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	} else {
+		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return "", err
+		}
+		if string(body) == "" {
+			return resp.Status, nil
+		} else {
+			return string(body), nil
+		}
+	}
+}
 func HttpFetchDoc(webUrl string, method string) *html.Node {
 
-	client := &http.Client{Transport: &http.Transport{}}
+	client := &http.Client{Timeout: 10 * time.Second,
+		Transport: &http.Transport{}}
 	req, _ := http.NewRequest(method, webUrl, nil)
 	req.Header.Set("User-Agent", RandomAgent())
 	count := 0

@@ -19,7 +19,14 @@ func TestSpider(t *testing.T) {
 	}
 	fmt.Println(sp.Data)
 }
-
+func TestGetBody(t *testing.T) {
+	s, err := GetBody("", "")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	fmt.Println(s)
+}
 func TestGetFil(t *testing.T) {
 	mienrList := []string{"f023985", "f023984", "f023982", "f023462", "f023534", "f023983", "f02529", "f02613", "f03002"}
 
@@ -53,4 +60,11 @@ func GetFil(address string) string {
 	node := HttpFetchDoc("https://filfox.info"+address, "GET")
 	data := htmlquery.FindOne(node, "//*[@id=\"__layout\"]/div/div[1]/div[1]/div[2]/dl[4]/dd/text()")
 	return data.Data
+}
+
+func TestGetSr2(t *testing.T) {
+	node := HttpFetchDoc("https://slingshot.filecoin.io/project/60740160d4a04efadd35c3ef/deals?page=10", "GET")
+	cid := htmlquery.FindOne(node, "//*[@id=\"content-area\"]/section[2]/div/div/div/div[2]/section/table/tbody/tr[45]/td[5]/div/span//@data-tooltip")
+	fmt.Println(node)
+	fmt.Println(cid)
 }

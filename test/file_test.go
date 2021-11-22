@@ -14,6 +14,7 @@ import (
 	"io"
 	"log"
 	"os"
+	"strings"
 	"testing"
 	"time"
 )
@@ -96,26 +97,40 @@ func TestLogFile(t *testing.T) {
 
 func listenFile(path string) {
 
-	f, err := os.Open(path)
+}
 
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	defer f.Close()
-	f.Seek(0, 2)
-
-	for {
-		s := bufio.NewReader(f)
-
-		by, err := s.ReadBytes('\n')
-		if err == io.EOF {
-			time.Sleep(time.Second * 1)
-			continue
-		} else if err != nil {
-			fmt.Println("lo", err)
+func TestLPL(t *testing.T) {
+	var (
+		s   = "D:\\test-1"
+		err error
+	)
+	//os.Mkdir(s,0666)
+	for i := 1; i <= 20000; i++ {
+		path := fmt.Sprintf("%s/%d", s, i)
+		err = os.Mkdir(path, 0777)
+		if err != nil {
+			panic(err)
 		}
-		fmt.Println("监听日志记录", string(by))
+		tmp := fmt.Sprintf("%s/%d", path, i)
+		file, _ := os.Create(tmp)
+		_, err = io.Copy(file, strings.NewReader(fmt.Sprintf("%s", path)))
 	}
 
+}
+
+func TestMk(t *testing.T) {
+	f := func() { fmt.Print("A") }
+	defer f()
+	f = func() { fmt.Print("B") }
+	defer f()
+}
+
+type integer int
+
+func (i integer) String() string {
+	return "hello"
+}
+
+func TestM(t *testing.T) {
+	fmt.Println(integer(5))
 }
